@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RootClass Test</title>
+	<script type="text/javascript" src="require.js"></script>
+	<script type="text/javascript">
+		require.config({
+
+			// Extra url to avoid caching issues
+			urlArgs : "version=" + (new Date()).getTime()
+		});
+
+		require(["App"], function(App) {
+			// init :)
+		});
+	</script>
+
+
+</head>
+<body>
+
+</body>
+</html>
