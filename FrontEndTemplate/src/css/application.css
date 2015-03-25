@@ -1,11 +1,9 @@
-.box {
-  color: #fe33ac;
-  border-color: #fdcdea;
+#mainApp {
+  width: 800px;
+  background: #2e6da4;
+  margin: 50px auto 0 auto;
+  padding: 20px 30px;
 }
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-.box a {
-  color: black;
+#mainApp h1 {
+  color: #fff;
 }

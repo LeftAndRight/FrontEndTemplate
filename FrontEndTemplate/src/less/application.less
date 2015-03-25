@@ -1,21 +1,10 @@
-@base: #f938ab;
+#mainApp{
+	width: 800px;
+	background: #2e6da4;
+	margin: 50px auto 0 auto;
+	padding: 20px 30px;
 
-.box-shadow(@style, @c) when (iscolor(@c)) {
-	-webkit-box-shadow: @style @c;
-	box-shadow: @style @c;
-}
-
-.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
-	.box-shadow(@style, rgba(0, 0, 0, @alpha));
-}
-
-.box {
-	color: saturate(@base, 5%);
-	border-color: lighten(@base, 30%);
-	div {
-		.box-shadow(0 0 5px, 30%)
-	}
-	a{
-		color:black;
+	h1{
+		color:#fff;
 	}
 }
