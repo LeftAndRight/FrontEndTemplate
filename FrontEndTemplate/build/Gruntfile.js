@@ -18,6 +18,15 @@ module.exports = function(grunt) {
 					dest	: "css/",
 					ext		: ".css"
 				}]
+			},
+			production: {
+				files: [{
+					expand	: true,
+					cwd		: "less/",
+					src		: ["**/*.less"],
+					dest	: "css/",
+					ext		: ".css"
+				}]
 			}
 		},
 		watch : {
