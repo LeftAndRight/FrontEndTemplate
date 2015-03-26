@@ -8,8 +8,9 @@
 
     console.log("Running through karma files to look for tests");
     for (var file in window.__karma__.files) {
+        console.log(file);
         if (window.__karma__.files.hasOwnProperty(file)) {
-            if (file.indexOf("/base/test/") == 0){
+            if (file.indexOf("build/test") != -1){
                 console.log("Found test file to use: ", file);
                 tests.push(file);
             }
