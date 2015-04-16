@@ -4,16 +4,16 @@
  */
 
 (function(){
-    var tests = [];
+    var webroot = "../src/js/";
+    var tests   = [];
 
     console.log("Running through karma files to look for tests");
+
     for (var file in window.__karma__.files) {
-        console.log(file);
-        if (window.__karma__.files.hasOwnProperty(file)) {
-            if (file.indexOf("build/test") != -1){
-                console.log("Found test file to use: ", file);
-                tests.push(file);
-            }
+        //console.log(file);
+        if (new RegExp("Spec\.js$").test(file)){
+            console.log("Found test file to use: ", file);
+            tests.push(file);
         }
     }
 
@@ -22,8 +22,8 @@
         baseUrl: '/base',
 
         paths: {
-            underscore  : 'node_modules/underscore/underscore',
-            jquery      : 'node_modules/jquery/dist/jquery'
+            //underscore  : webroot + "vendor/underscore.1.8.2",
+            //jquery      : webroot + "vendor/jquery-2.1.3"
         },
 
         // ask Require.js to load these files (all our tests)

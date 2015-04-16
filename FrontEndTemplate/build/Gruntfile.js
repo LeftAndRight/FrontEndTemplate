@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 					// list of files / patterns to load in the browser
 					files: [
 						// This is KEY, all the files must be referenced but never included, the bootstrap loads them
-						{pattern: build + 'node_modules/**/*.js', included: false},
+						//{pattern: build + 'node_modules/**/*.js', included: false},
 						{pattern: build + 'test/*.js', included: false},
 						build + 'karma-require-bootstrap.js'
 					],
