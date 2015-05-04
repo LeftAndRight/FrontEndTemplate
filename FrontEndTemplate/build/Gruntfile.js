@@ -44,8 +44,7 @@ module.exports = function(grunt) {
 					expand	: true,
 					cwd		: "css/",
 					src		: ["**/*.css"],
-					dest	: "css-min/",
-					ext		: ".css"
+					dest	: "css-min/"
 				}]
 			}
 		},
@@ -56,8 +55,7 @@ module.exports = function(grunt) {
 					expand	: true,
 					cwd		: "js/",
 					src		: ["**/*.js"],
-					dest	: "js-min/",
-					ext		: ".js"
+					dest	: "js-min/"
 				}]
 			}
 		},
@@ -112,6 +110,7 @@ module.exports = function(grunt) {
 	});
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["less", "cssmin", "uglify", "karma"]);
+	grunt.registerTask("default", ["less", "cssmin", "uglify"]);
+	grunt.registerTask("full", ["less", "cssmin", "uglify", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
