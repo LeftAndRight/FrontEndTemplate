@@ -1,4 +1,5 @@
-// jasmine example
+// jasmine example using require
+// Docs: http://jasmine.github.io/2.0/introduction.html
 define(["underscore", "jquery"], function(_, $){
     console.log("underscore: ", _);
     console.log("jquery: ", $);
