@@ -2,9 +2,7 @@
  * This snippet is mostly take from this page:
  * http://karma-runner.github.io/0.8/plus/RequireJS.html
  */
-
 (function(){
-    var webroot = "../src/js/";
     var tests   = [];
 
     console.log("Running through karma files to look for tests");
@@ -22,8 +20,8 @@
         baseUrl: '/base',
 
         paths: {
-            //underscore  : webroot + "vendor/underscore.1.8.2",
-            //jquery      : webroot + "vendor/jquery-2.1.3"
+            underscore  : "js/vendor/underscore.1.8.2",
+            jquery      : "js/vendor/jquery-2.1.3"
         },
 
         // ask Require.js to load these files (all our tests)

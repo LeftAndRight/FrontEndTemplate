@@ -1,6 +1,7 @@
 // jasmine example
-define(["underscore"], function(_){
+define(["underscore", "jquery"], function(_, $){
     console.log("underscore: ", _);
+    console.log("jquery: ", $);
 
     describe("The 'toBe' matcher compares with ===", function() {
 
