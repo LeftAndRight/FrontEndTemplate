@@ -1,6 +1,6 @@
 requirejs.config({
-	baseUrl: this.jsPrefix ? this.jsPrefix : "js",
-	urlArgs: "build=" + this.buildNumber ? this.buildNumber : "1",
+	baseUrl: (this.jsPrefix ? this.jsPrefix : "js"),
+	urlArgs: "build=" + (this.buildNumber ? this.buildNumber : "0"),
 
 	paths: {
 		jquery		: "vendor/jquery-2.1.3",
