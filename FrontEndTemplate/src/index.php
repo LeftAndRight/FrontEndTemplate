@@ -18,13 +18,18 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $cssPrefix?>/vendor/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $cssPrefix?>/application.css">
 
+
     <!-- Javascript -->
-	<script type="text/javascript" src="<?php echo $jsPrefix?>/vendor/require.js<?php echo '?build=' . $buildNumber?>"></script>
+	<script type="text/javascript" src="<?php echo $jsPrefix?>/vendor/require.js?build=<?php echo $buildNumber; ?>"></script>
 	<script type="text/javascript">
 		var jsPrefix	= "<?php echo $jsPrefix; ?>";
 		var buildNumber	= "<?php echo $buildNumber; ?>";
-		require([jsPrefix + "/require_config.js?build=" + buildNumber], function(){
-			require(["<?php echo $pageName; ?>"]);
+		// Load the common code, it will be config
+		// For production it will be config plus all the frameworks defined
+		require([jsPrefix + "/common.js?build=" + buildNumber], function(){
+			require(["frameworks"], function(){
+				require(["<?php echo $pageName; ?>"]);
+			});
 		});
 	</script>
 </head>

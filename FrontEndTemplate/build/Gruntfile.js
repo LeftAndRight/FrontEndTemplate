@@ -1,3 +1,7 @@
+// Required variables for the require_config.js
+var jsPrefix	= "js";
+var buildNumber	= "random";
+
 // Docs: http://gruntjs.com/getting-started
 module.exports = function(grunt) {
 
@@ -5,13 +9,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-karma');
 
 	// Change to the web-root
 	grunt.file.setBase("../src");
 	// Store prefix top the build directory
-	var build = "../build/";
+	var build		= "../build/";
+
 
 	// Project configuration
 	grunt.initConfig({
@@ -48,15 +53,23 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		// uglify task used to compress javascript into a new folder js-min
-		uglify : {
-			main : {
-				files 	: [{
-					expand	: true,
-					cwd		: "js/",
-					src		: ["**/*.js"],
-					dest	: "js-min/"
-				}]
+		requirejs: {
+			main: {
+				options: {
+					// These are the basic options for the compiler: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+					baseUrl		: "js",
+					dir			: "js-min",
+					optimize	: "none",// Change to uglify2 to use compression / none to remove
+					modules 	: [
+						// Put all the config and the frameworks into a single file to load upfront
+						{name: "common", include:["frameworks"]},
+						// All modules that need to be combined with their dependencies need to be populated here
+						// If the dependencies can be loaded at runtime then leave them out.
+						{name: "index"}
+					],
+					// Load the base config file to reuse the paths and shim info
+					mainConfigFile: "js/common.js"
+				}
 			}
 		},
 		// Karma config used to run karma build test runner harness in the grunt environment
@@ -110,7 +123,7 @@ module.exports = function(grunt) {
 	});
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["less", "cssmin", "uglify"]);
-	grunt.registerTask("full", ["less", "cssmin", "uglify", "karma"]);
+	grunt.registerTask("default", ["less", "cssmin", "requirejs"]);
+	grunt.registerTask("full", ["less", "cssmin", "requirejs", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
