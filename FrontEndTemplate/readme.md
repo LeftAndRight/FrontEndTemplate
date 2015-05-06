@@ -84,9 +84,9 @@ There are a few ways to run and maintain the less files.
 
 You can use the basic grunt task every time you change a less file by running ``` grunt less ```
 
-You can use the grunt based watch task to do the above automatically by running ``` grunt less ```. You can also run grunt tasks directly inside intellij, the latest version supports grunt as long as you have the nodejs plugin installed.
+You can use the grunt based watch task to do the above automatically by running ``` grunt watch ```. You can also run grunt tasks directly inside intellij, the latest version supports grunt as long as you have the nodejs plugin installed.
 
-The easiest way however is to setup intellij to do this for you. This can be accomplished using a file watchers (intellij plugin) and the less compiller (already installed with the dependencies).
+The easiest way however is to setup intellij to do this for you. This can be accomplished using a file watchers (intellij plugin) and the less compiller (already installed with the grunt dependencies).
 
 * Install the intellij plugin - file watchers
 * Go to settings, tools, file watchers and add a new one.
