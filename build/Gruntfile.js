@@ -56,11 +56,17 @@ module.exports = function(grunt) {
 					// Load the base config file to reuse the paths and shim info
 					mainConfigFile: "js/common.js"
 				}
-			},
-			// CSS Section
-			// Task for compressing css into a single file
-			css: {
-				options: {
+			}
+		},
+
+		multicss : {
+			main: {
+				files:[{
+					expand		: true,
+					cwd			: "css",
+					src			: ["*.css"],
+					dest		: "css-min",
+
 					// Allowed values:
 					// "none": skip CSS optimizations.
 					// "standard": @import inlining and removal of comments, unnecessary whitespace and line returns. Removing line returns may have problems in IE, depending on the type of CSS.
@@ -68,10 +74,8 @@ module.exports = function(grunt) {
 					// "standard.keepComments": keeps the file comments, but removes line returns.
 					// "standard.keepComments.keepLines": keeps the file comments and line returns.
 					// "standard.keepWhitespace": like "standard" but keeps unnecessary whitespace.
-					optimizeCss	: "standard",
-					cssIn		: "css/application.css",
-					out			: "css-min/application.css"
-				}
+					optimizeCss	: "standard"
+				}]
 			}
 		},
 		// Karma config used to run karma build test runner harness in the grunt environment
@@ -124,8 +128,34 @@ module.exports = function(grunt) {
 		}
 	});
 
+	// Utility task which allows us to run requirejs optimisation on multiple css files
+	// Manually building the config from a dynamic list of files
+	grunt.registerMultiTask("multicss", "Minify CSS files in a folder", function() {
+		var cnt		= 1;
+		var toRun	= [];
+		this.files.forEach(function(map){
+			if (grunt.file.exists(map.src[0])){
+				var base	= grunt.config.get("requirejs") || {};
+				var name	= "file" + cnt;
+				base[name] 	= {
+					options: {
+						optimizeCss	: map.optimizeCss,
+						cssIn		: map.src[0],
+						out			: map.dest
+					}
+				};
+				grunt.config.set("requirejs", base);
+				toRun.push("requirejs:" + name);
+				cnt++;
+			}
+		});
+		toRun.forEach(function(task){
+			grunt.task.run(task);
+		});
+	});
+
 	// Define tasks that can be run
-	grunt.registerTask("default", ["less", "requirejs:js", "requirejs:css"]);
-	grunt.registerTask("full", ["less", "requirejs:js", "requirejs:css", "karma"]);
+	grunt.registerTask("default", ["less", "requirejs:js", "multicss"]);
+	grunt.registerTask("full", ["less", "requirejs:js", "multicss", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
