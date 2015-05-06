@@ -4,9 +4,9 @@ module.exports = function(grunt) {
 	// Load the plugins
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks("grunt-contrib-cssmin");
+	grunt.loadNpmTasks("grunt-contrib-requirejs");
+	grunt.loadNpmTasks("grunt-karma");
 
 	// Change to the web-root
 	grunt.file.setBase("../src");
@@ -64,27 +64,29 @@ module.exports = function(grunt) {
 			unit : {
 				options :{
 					// base path that will be used to resolve all patterns (eg. files, exclude)
-					basePath: '',
+					basePath: "",
 
 					// frameworks to use
 					// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-					frameworks: ['jasmine', 'requirejs'],
+					frameworks: ["jasmine", "requirejs"],
 
 
 					// list of files / patterns to load in the browser
 					files: [
 						// Include the test files and the project source files but do not include them
 						// The karma-require-bootstrap.js autoloads the files for us as needed
-						{pattern: build + 'test/*.js', included: false},
-						{pattern: 'js/**/*.js', included: false},
-						build + 'karma-require-bootstrap.js'
+						{pattern: build + "test/**/*.js", included: false},
+						{pattern: "js/**/*.js", included: false},
+						build + "karma-require-bootstrap.js"
 					],
 
-
-					// test results reporter to use
-					// possible values: 'dots', 'progress'
-					// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-					reporters: ['progress'],
+					// Both of reporters are custom plugins:
+					// junit - used to generare an XML report that can be used by jenkins
+					// karma-spec-reporter - used to generare a friendly output in the console
+					reporters: ["junit", "spec"],
+					junitReporter: {
+						outputFile: "../reports/js-unit-test-results.xml"
+					},
 
 					// web server port
 					port: 9876,
@@ -100,7 +102,7 @@ module.exports = function(grunt) {
 					autoWatch: false,
 
 					// start these browsers. available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-					browsers: ['PhantomJS'],
+					browsers: ["PhantomJS"],
 
 					// Continuous Integration mode if true, Karma captures browsers, runs the tests and exits
 					singleRun: true

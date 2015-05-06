@@ -3,3 +3,4 @@ node_modules
 *.iml
 /src/js-min
 /src/css-min
+/reports
