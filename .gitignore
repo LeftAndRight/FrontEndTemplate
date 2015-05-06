@@ -1,5 +1,5 @@
 node_modules
 .idea
 *.iml
-/FrontEndTemplate/src/css-min
-/FrontEndTemplate/src/js-min
+/src/js-min
+/src/css-min

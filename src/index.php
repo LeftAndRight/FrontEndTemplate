@@ -5,17 +5,36 @@
     <title>Front End Template</title>
 
     <?php
-    // Basic switch for production vs development
-    // This is a basic implementation as it will change with each language and needs to be implemented as such
+	// Required model parameters:
+	// $environment 	- production or development
+	// $version 		- the version of the app currently, only used for production
+	// $pageName 		- the name of the js file to load for this page
+	// $developmentCSS 	- the css files to load for development
+	// $productionCSS	- the css files for load for production
 	$environment	= "development";
-	$buildNumber	= $environment == "production" ? "0.1" : microtime(true) * 10000;
+	$version		= "0.1";
 	$pageName		= "index";
-	$cssPrefix		= $environment == "production" ? "css-min" : "css";
-	$jsPrefix		= $environment == "production" ? "js-min" : "js";
-    ?>
+	$developmentCSS	= array(
+		"css/vendor/bootstrap.css",
+		"css/application.css"
+	);
+	$productionCSS	= array(
+		"css-min/application.css"
+	);
+	?>
 
-	<!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="<?php echo $cssPrefix?>/application.css">
+
+	<?php
+	// From here down the header rendering should never change as it is based on the model data
+	$buildNumber	= $environment == "production" ? $version : microtime(true) * 10000;
+	$jsPrefix		= $environment == "production" ? "js-min" : "js";
+
+	// Render CSS Imports
+	$css			= $environment == "production" ? $productionCSS : $developmentCSS;
+	foreach ($css as $file){
+		echo "<link rel='stylesheet' type='text/css' href='$file?build=$buildNumber'>";
+	}
+    ?>
 
     <!-- Javascript -->
 	<script type="text/javascript" src="<?php echo $jsPrefix?>/vendor/require.js?build=<?php echo $buildNumber; ?>"></script>

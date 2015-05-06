@@ -27,13 +27,14 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		// Watch task for auto running less command on changed less files
-		watch : {
-			main : {
-				files 	: ["less/**/*.less"],
-				tasks	: ["less"],
-				options: {
-					spawn: false
+		// CSS minification, this will likely need updates as new css files are added
+		cssmin : {
+			main: {
+				files: {
+					"css-min/application.css" : [
+						"css/application.css",
+						"css/vendor/bootstrap.css"
+					]
 				}
 			}
 		},
@@ -56,26 +57,6 @@ module.exports = function(grunt) {
 					// Load the base config file to reuse the paths and shim info
 					mainConfigFile: "js/common.js"
 				}
-			}
-		},
-
-		multicss : {
-			main: {
-				files:[{
-					expand		: true,
-					cwd			: "css",
-					src			: ["*.css"],
-					dest		: "css-min",
-
-					// Allowed values:
-					// "none": skip CSS optimizations.
-					// "standard": @import inlining and removal of comments, unnecessary whitespace and line returns. Removing line returns may have problems in IE, depending on the type of CSS.
-					// "standard.keepLines": like "standard" but keeps line returns.
-					// "standard.keepComments": keeps the file comments, but removes line returns.
-					// "standard.keepComments.keepLines": keeps the file comments and line returns.
-					// "standard.keepWhitespace": like "standard" but keeps unnecessary whitespace.
-					optimizeCss	: "standard"
-				}]
 			}
 		},
 		// Karma config used to run karma build test runner harness in the grunt environment
@@ -125,37 +106,21 @@ module.exports = function(grunt) {
 					singleRun: true
 				}
 			}
+		},
+		// Watch task for auto running less command on changed less files
+		watch : {
+			main : {
+				files 	: ["less/**/*.less"],
+				tasks	: ["less"],
+				options: {
+					spawn: false
+				}
+			}
 		}
 	});
 
-	// Utility task which allows us to run requirejs optimisation on multiple css files
-	// Manually building the config from a dynamic list of files
-	grunt.registerMultiTask("multicss", "Minify CSS files in a folder", function() {
-		var cnt		= 1;
-		var toRun	= [];
-		this.files.forEach(function(map){
-			if (grunt.file.exists(map.src[0])){
-				var base	= grunt.config.get("requirejs") || {};
-				var name	= "file" + cnt;
-				base[name] 	= {
-					options: {
-						optimizeCss	: map.optimizeCss,
-						cssIn		: map.src[0],
-						out			: map.dest
-					}
-				};
-				grunt.config.set("requirejs", base);
-				toRun.push("requirejs:" + name);
-				cnt++;
-			}
-		});
-		toRun.forEach(function(task){
-			grunt.task.run(task);
-		});
-	});
-
 	// Define tasks that can be run
-	grunt.registerTask("default", ["less", "requirejs:js", "multicss"]);
-	grunt.registerTask("full", ["less", "requirejs:js", "multicss", "karma"]);
+	grunt.registerTask("default", ["less", "requirejs:js", "cssmin"]);
+	grunt.registerTask("full", ["less", "requirejs:js", "cssmin", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
