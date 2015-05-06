@@ -12,7 +12,7 @@ The infrastructure in place in this project is the following:
 * [Grunt](http://gruntjs.com/) task runner build tool
     * [Less](http://lesscss.org/) compillation ([grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less))
     * Watch task for less compilation ([grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch))
-    * CSS optimization using ([requirejs optimizer](http://requirejs.org/docs/optimization.html))
+    * CSS optimization using ([grunt-contrib-cssmin](https://github.com/gruntjs/grunt-contrib-cssmin))
     * Requirejs optimization ([requirejs optimizer](http://requirejs.org/docs/optimization.html))
     * Javascript unit tests
         * Support to run with grunt inside the Karma platform ([grunt-karma](https://github.com/karma-runner/grunt-karma))
@@ -101,7 +101,9 @@ Helpful links if you get stuck:
 
 
 ## CSS Optimisation
-CSS optimization uses @import tags to reference other css files like bootstrap. These are resolved at build time into a single file. In development mode the browser loads them automatically.
+CSS optimisation in the template uses a set of css files in the development and a single file in production. 
+The merging of the files is configurable in the build/Gruntfile.js under the cssmin section. 
+This is very project dependant so it must be upadated for each project depending on your needs.
 
 ## .htaccess
 The .htaccess file is pulled directly from biolerplate. It has some apache modules that must be enabled for it to work correctly:
