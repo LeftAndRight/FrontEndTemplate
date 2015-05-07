@@ -1,20 +1,47 @@
 // Docs: http://gruntjs.com/getting-started
 module.exports = function(grunt) {
 
-	// Load the plugins
-	grunt.loadNpmTasks("grunt-contrib-less");
-	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-contrib-cssmin");
-	grunt.loadNpmTasks("grunt-contrib-requirejs");
-	grunt.loadNpmTasks("grunt-karma");
-
-	// Change to the web-root
-	grunt.file.setBase("../src");
-	// Store prefix top the build directory
+	// The web-root
+	var webRoot		= "../src";
+	// The build directory relative to the web-root
 	var build		= "../build/";
 
 	// Project configuration
 	grunt.initConfig({
+		// CSS minification, this will likely need updates as new css files are added
+		cssmin : {
+			main: {
+				files: {
+					"css-min/application.css" : [
+						"css/application.css",
+						"css/vendor/bootstrap.css"
+					]
+				}
+			}
+		},
+		requirejs: {
+			js: {
+				options: {
+					// These are the basic options for the compiler: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+					// For some good real world examples see: https://github.com/cloudchen/requirejs-bundle-examples
+					modules 	: [
+						// Put all the config and the frameworks into a single file to load upfront
+						{name: "common", include:["frameworks"]},
+						// All modules that need to be combined with their dependencies need to be populated here
+						// If the dependencies can be loaded at runtime then leave them out.
+						{name: "index"}
+					],
+					baseUrl		: "js",
+					dir			: "js-min",
+					optimize	: "uglify2",// Change to uglify2 to use compression / none to remove
+					// Load the base config file to reuse the paths and shim info
+					mainConfigFile: "js/common.js"
+				}
+			}
+		},
+
+
+
 		// Less config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
 		less : {
 			main : {
@@ -27,35 +54,13 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		// CSS minification, this will likely need updates as new css files are added
-		cssmin : {
-			main: {
-				files: {
-					"css-min/application.css" : [
-						"css/application.css",
-						"css/vendor/bootstrap.css"
-					]
-				}
-			}
-		},
-
-		requirejs: {
-			js: {
+		// Watch task for auto running less command on changed less files
+		watch : {
+			main : {
+				files 	: ["less/**/*.less"],
+				tasks	: ["less"],
 				options: {
-					// These are the basic options for the compiler: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-					// For some good real world examples see: https://github.com/cloudchen/requirejs-bundle-examples
-					baseUrl		: "js",
-					dir			: "js-min",
-					optimize	: "uglify2",// Change to uglify2 to use compression / none to remove
-					modules 	: [
-						// Put all the config and the frameworks into a single file to load upfront
-						{name: "common", include:["frameworks"]},
-						// All modules that need to be combined with their dependencies need to be populated here
-						// If the dependencies can be loaded at runtime then leave them out.
-						{name: "index"}
-					],
-					// Load the base config file to reuse the paths and shim info
-					mainConfigFile: "js/common.js"
+					spawn: false
 				}
 			}
 		},
@@ -108,18 +113,17 @@ module.exports = function(grunt) {
 					singleRun: true
 				}
 			}
-		},
-		// Watch task for auto running less command on changed less files
-		watch : {
-			main : {
-				files 	: ["less/**/*.less"],
-				tasks	: ["less"],
-				options: {
-					spawn: false
-				}
-			}
 		}
 	});
+
+
+	// Load the plugins
+	grunt.loadNpmTasks("grunt-contrib-less");
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-contrib-cssmin");
+	grunt.loadNpmTasks("grunt-contrib-requirejs");
+	grunt.loadNpmTasks("grunt-karma");
+	grunt.file.setBase("../src");
 
 	// Define tasks that can be run
 	grunt.registerTask("default", ["less", "requirejs:js", "cssmin"]);
