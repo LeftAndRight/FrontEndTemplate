@@ -13,8 +13,8 @@ module.exports = function(grunt) {
 			main: {
 				files: {
 					"css-min/application.css" : [
-						"css/application.css",
-						"css/vendor/bootstrap.css"
+						"css/vendor/bootstrap.css",
+						"css/application.css"
 					]
 				}
 			}
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
 			unit : {
 				options :{
 					// base path that will be used to resolve all patterns (eg. files, exclude)
-					basePath: "",
+					basePath: "../",
 
 					// frameworks to use
 					// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -80,9 +80,9 @@ module.exports = function(grunt) {
 					files: [
 						// Include the test files and the project source files but do not include them
 						// The karma-require-bootstrap.js autoloads the files for us as needed
-						{pattern: build + "test/**/*.js", included: false},
-						{pattern: "js/**/*.js", included: false},
-						build + "karma-require-bootstrap.js"
+						{pattern: "build/test/**/*.js", included: false},
+						{pattern: "src/js/**/*.js", included: false},
+						"build/karma-require-bootstrap.js"
 					],
 
 					// Both of reporters are custom plugins:
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 					// karma-spec-reporter - used to generare a friendly output in the console
 					reporters: ["junit", "spec"],
 					junitReporter: {
-						outputFile: "../reports/js-unit-test-results.xml"
+						outputFile: "../../reports/js-unit-test-results.xml"
 					},
 
 					// web server port
