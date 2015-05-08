@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 					// karma-spec-reporter - used to generare a friendly output in the console
 					reporters: ["junit", "spec"],
 					junitReporter: {
-						outputFile: "../../reports/js-unit-test-results.xml"
+						outputFile: "reports/js-unit-test-results.xml"
 					},
 
 					// web server port
