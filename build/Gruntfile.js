@@ -40,15 +40,26 @@ module.exports = function(grunt) {
 			}
 		},
 
-
-
 		// Less config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
-		less : {
+		/*less : {
 			main : {
 				files: [{
 					expand	: true,
 					cwd		: "less/",
-					src		: ["**/*.less"],
+					src		: ["**!/!*.less"],
+					dest	: "css/",
+					ext		: ".css"
+				}]
+			}
+		},*/
+
+		// SCSS config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
+		sass : {
+			main : {
+				files: [{
+					expand	: true,
+					cwd		: "scss/",
+					src		: ["**/*.scss"],
 					dest	: "css/",
 					ext		: ".css"
 				}]
@@ -123,10 +134,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
 	grunt.loadNpmTasks("grunt-karma");
+	grunt.loadNpmTasks("grunt-sass");
 	grunt.file.setBase("../src");
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["less", "requirejs:js", "cssmin"]);
-	grunt.registerTask("full", ["less", "requirejs:js", "cssmin", "karma"]);
+	grunt.registerTask("default", ["sass", "requirejs:js", "cssmin"]);
+	grunt.registerTask("full", ["sass", "requirejs:js", "cssmin", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };

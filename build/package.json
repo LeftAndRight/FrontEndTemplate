@@ -15,6 +15,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "^0.10.1",
+    "grunt-sass": "^1.0.0",
     "jasmine-core": "^2.3.0",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
