@@ -40,19 +40,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// Less config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
-		/*less : {
-			main : {
-				files: [{
-					expand	: true,
-					cwd		: "less/",
-					src		: ["**!/!*.less"],
-					dest	: "css/",
-					ext		: ".css"
-				}]
-			}
-		},*/
-
 		// SCSS config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
 		sass : {
 			main : {
@@ -129,7 +116,6 @@ module.exports = function(grunt) {
 
 
 	// Load the plugins
-	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
