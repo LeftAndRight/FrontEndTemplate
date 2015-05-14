@@ -59,9 +59,9 @@ module.exports = function(grunt) {
 					// PNG optimization level
 					optimizationLevel: 7,
 					// jpg progressive transformation
-					progressive: true,
-					// gif transformation
-					interlaced: true
+					progressive: false,
+					// gif interlaced transformation
+					interlaced: false
 					// SVG options supported, see docs: https://github.com/gruntjs/grunt-contrib-imagemin
 				},
 				files: [{
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
 	grunt.file.setBase("../src");
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["sass", "requirejs:js", "cssmin"]);
-	grunt.registerTask("full", ["sass", "requirejs:js", "cssmin", "karma"]);
+	grunt.registerTask("default", ["sass", "requirejs:js", "cssmin", "newer:imagemin"]);
+	grunt.registerTask("full", ["sass", "requirejs:js", "cssmin", "newer:imagemin", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
