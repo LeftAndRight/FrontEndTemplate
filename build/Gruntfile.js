@@ -6,8 +6,36 @@ module.exports = function(grunt) {
 	// The build directory relative to the web-root
 	var build		= "../build/";
 
+    var bootstrapConfig = grunt.file.readJSON('../build/js/vendor/bootstrap/configBridge.json', { encoding: 'utf8' });
+
 	// Project configuration
 	grunt.initConfig({
+        // Bootstrap JS: Only include what you need. Everything included by default.
+        jqueryCheck: bootstrapConfig.config.jqueryCheck.join('\n'),
+        jqueryVersionCheck: bootstrapConfig.config.jqueryVersionCheck.join('\n'),
+        concat: {
+            bootstrap: {
+                options: {
+                    banner: '<%= jqueryCheck %>\n<%= jqueryVersionCheck %>',
+                    stripBanners: false
+                },
+                src: [
+                    '../build/js/vendor/bootstrap/transition.js',
+                    '../build/js/vendor/bootstrap/alert.js',
+                    '../build/js/vendor/bootstrap/button.js',
+                    '../build/js/vendor/bootstrap/carousel.js',
+                    '../build/js/vendor/bootstrap/collapse.js',
+                    '../build/js/vendor/bootstrap/dropdown.js',
+                    '../build/js/vendor/bootstrap/modal.js',
+                    '../build/js/vendor/bootstrap/tooltip.js',
+                    '../build/js/vendor/bootstrap/popover.js',
+                    '../build/js/vendor/bootstrap/scrollspy.js',
+                    '../build/js/vendor/bootstrap/tab.js',
+                    '../build/js/vendor/bootstrap/affix.js'
+                ],
+                dest: 'js/vendor/bootstrap.js'
+            }
+        },
 		// CSS minification, this will likely need updates as new css files are added
 		cssmin : {
 			main: {
@@ -136,6 +164,7 @@ module.exports = function(grunt) {
 
 
 	// Load the plugins
+    grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
 	grunt.loadNpmTasks("grunt-sass");
@@ -148,7 +177,7 @@ module.exports = function(grunt) {
 	grunt.file.setBase(webRoot);
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["sass", "requirejs:js", "cssmin", "newer:imagemin"]);
-	grunt.registerTask("full", ["sass", "requirejs:js", "cssmin", "newer:imagemin", "karma"]);
+	grunt.registerTask("default", ["sass", "concat", "requirejs:js", "cssmin", "newer:imagemin"]);
+	grunt.registerTask("full", ["sass", "concat", "requirejs:js", "cssmin", "newer:imagemin", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
