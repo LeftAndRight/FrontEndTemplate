@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			main: {
 				files: {
 					"css-min/application.css" : [
-						"css/vendor/bootstrap.css",
+						"css/customBootstrap.css",
 						"css/application.css"
 					]
 				}
@@ -26,10 +26,10 @@ module.exports = function(grunt) {
 					// For some good real world examples see: https://github.com/cloudchen/requirejs-bundle-examples
 					modules 	: [
 						// Put all the config and the frameworks into a single file to load upfront
-						{name: "common", include:["frameworks"]},
-						// All modules that need to be combined with their dependencies need to be populated here
-						// If the dependencies can be loaded at runtime then leave them out.
-						{name: "index"}
+                        {name: "common", include:["frameworks"]},
+                        // All modules that need to be combined with their dependencies need to be populated here
+                        // If the dependencies can be loaded at runtime then leave them out.
+                        {name: "index"}
 					],
 					baseUrl		: "js",
 					dir			: "js-min",
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-newer");
 
 	// Set base
-	grunt.file.setBase("../src");
+	grunt.file.setBase(webRoot);
 
 	// Define tasks that can be run
 	grunt.registerTask("default", ["sass", "requirejs:js", "cssmin", "newer:imagemin"]);

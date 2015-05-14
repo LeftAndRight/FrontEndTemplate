@@ -2,6 +2,8 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Front End Template</title>
 
     <?php
@@ -12,7 +14,7 @@
 	// $developmentCSS 	- (Optional) the css files to load for development
 	// $productionCSS	- (Optional) the css files for load for production
 	$environment	= "development";
-	$version		= "0.1";
+	$version		= "0.0.1";
 	$pageName		= "index";
 	$developmentCSS	= array(
 		"css/vendor/bootstrap.css",

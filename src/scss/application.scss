@@ -1,3 +1,21 @@
+// Bootstrap Overrides
+@import "customBootstrapVariables";
+
+// Bootstrap imports
+@import "vendor/bootstrap/bootstrap/_variables";
+@import "vendor/bootstrap/bootstrap/_mixins";
+
+// Project specific
+@import "applicationVariables";
+@import "mixins/_mixins";
+
+// Default to box sizing
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+
+
+
 #mainApp{
 	width: 800px;
 	background: #2e6da4;
