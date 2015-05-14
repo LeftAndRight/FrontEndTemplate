@@ -52,11 +52,31 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+		// Image compression systems
+		imagemin: {
+			main : {
+				options:{
+					// PNG optimization level
+					optimizationLevel: 7,
+					// jpg progressive transformation
+					progressive: true,
+					// gif transformation
+					interlaced: true
+					// SVG options supported, see docs: https://github.com/gruntjs/grunt-contrib-imagemin
+				},
+				files: [{
+					expand	: true,
+					cwd		: "images/",
+					src		: ["**/*.{png,jpg,gif}"],
+					dest	: "images/"
+				}]
+			}
+		},
 		// Watch task for auto running less command on changed less files
 		watch : {
 			main : {
-				files 	: ["less/**/*.less"],
-				tasks	: ["less"],
+				files 	: ["scss/**/*.scss"],
+				tasks	: ["sass"],
 				options: {
 					spawn: false
 				}
@@ -116,11 +136,15 @@ module.exports = function(grunt) {
 
 
 	// Load the plugins
-	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
-	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-sass");
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-karma");
+	grunt.loadNpmTasks('grunt-newer');
+
+	// Set base
 	grunt.file.setBase("../src");
 
 	// Define tasks that can be run
