@@ -9,8 +9,7 @@ requirejs.config({
 	},
 
 	shim : {
-		jquery		: { exports:"$" },
 		bootstrap	: { deps: ["jquery"] },
-		underscore	: { exports: "_", deps: ["jquery"] }
+		underscore	: { deps: ["jquery"] }
 	}
 });

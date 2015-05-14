@@ -1,4 +1,4 @@
-define(function(){
+define(["jquery", "underscore"], function($, _){
 	console.log("index page javascript loaded");
 
 	console.log("is jquery available globally: ", $);

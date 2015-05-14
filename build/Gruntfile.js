@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 						{name: "common", include:["frameworks"]},
 						// All modules that need to be combined with their dependencies need to be populated here
 						// If the dependencies can be loaded at runtime then leave them out.
-						{name: "index"}
+						{name: "index", exclude:["frameworks"]}
 					],
 					baseUrl		: "js",
 					dir			: "js-min",
