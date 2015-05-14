@@ -139,10 +139,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
 	grunt.loadNpmTasks("grunt-sass");
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks("grunt-contrib-imagemin");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-karma");
-	grunt.loadNpmTasks('grunt-newer');
+	grunt.loadNpmTasks("grunt-newer");
 
 	// Set base
 	grunt.file.setBase("../src");
