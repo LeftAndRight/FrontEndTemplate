@@ -17,12 +17,13 @@
 
     requirejs.config({
         // Karma serves files from '/base'
-        baseUrl: "base",
+        baseUrl: "/base",
 
         // underscore and jquery are included in the testing server in the grunt config.
         // All included files are placed into the base directory so we just load them relatively.
         // They are NOT loaded relative to this file but relative to the testing server
         paths: {
+            text        : "src/js/vendor/requirejs-text",
             underscore  : "src/js/vendor/underscore.1.8.2",
             jquery      : "src/js/vendor/jquery-2.1.3"
         },

@@ -1,6 +1,10 @@
-// jasmine example using require
 // Docs: http://jasmine.github.io/2.3/introduction.html
-define(["underscore", "jquery", "src/js/index"], function(_, $){
+
+// Example template is a text file loaded using the text requirejs plugin
+// Useful for loading html snippets for testing stuff in the DOM
+define(["underscore", "jquery", "src/js/index", "text!../resources/ExampleTemplate.tpl"], function(_, $, ExampleTemplate){
+
+	console.log("ExampleTemplate: ", ExampleTemplate);
 
     describe("Example test suite", function() {
 
