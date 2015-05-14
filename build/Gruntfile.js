@@ -90,15 +90,15 @@ module.exports = function(grunt) {
 					basePath: "../",
 
 					// frameworks to use
-					// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-					frameworks: ["jasmine", "requirejs"],
-
+					// jasmine-ajax must come before jasmine, used to mock jasmine ajax requests
+					frameworks: ["jasmine-ajax", "jasmine", "requirejs"],
 
 					// list of files / patterns to load in the browser
 					files: [
 						// Include the test files and the project source files but do not include them
 						// The karma-require-bootstrap.js autoloads the files for us as needed
 						{pattern: "build/test/**/*.js", included: false},
+						{pattern: "build/test/**/*.tpl", included: false},
 						{pattern: "src/js/**/*.js", included: false},
 						"build/karma-require-bootstrap.js"
 					],
