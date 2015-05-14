@@ -4,9 +4,12 @@
  */
 define(
 	[
-		"bootstrap",
 		"jquery",
-		"underscore"
+		"underscore",
+		"bootstrap"
 	],
-	function(){}
+	function($, _){
+		$.noConflict();
+		_.noConflict();
+	}
 );
