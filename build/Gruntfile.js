@@ -36,6 +36,26 @@ module.exports = function(grunt) {
                 dest: 'js/vendor/bootstrap.js'
             }
         },
+
+		// SCSS config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
+		sass : {
+			main : {
+				options: {
+					outputStyle	: "expanded",
+					precision	: 5,
+					indentType	: "tab",
+					indentWidth	: 1
+				},
+				files: [{
+					expand	: true,
+					cwd		: "scss/",
+					src		: ["**/*.scss"],
+					dest	: "css/",
+					ext		: ".css"
+				}]
+			}
+		},
+
 		// CSS minification, this will likely need updates as new css files are added
 		cssmin : {
 			main: {
@@ -47,6 +67,23 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
+		// Coffee script compiler compiles straight to js folder
+		coffee: {
+			main: {
+				options: {
+					bare: true
+				},
+				files: [{
+					expand	: true,
+					cwd		: "coffee/",
+					src		: ["**/*.coffee"],
+					dest	: "js/",
+					ext		: ".js"
+				}]
+			}
+		},
+
 		requirejs: {
 			js: {
 				options: {
@@ -65,25 +102,6 @@ module.exports = function(grunt) {
 					// Load the base config file to reuse the paths and shim info
 					mainConfigFile: "js/common.js"
 				}
-			}
-		},
-
-		// SCSS config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
-		sass : {
-			main : {
-				options: {
-					outputStyle	: "expanded",
-					precision	: 5,
-					indentType	: "tab",
-					indentWidth	: 1
-				},
-				files: [{
-					expand	: true,
-					cwd		: "scss/",
-					src		: ["**/*.scss"],
-					dest	: "css/",
-					ext		: ".css"
-				}]
 			}
 		},
 		// Image compression systems
@@ -172,6 +190,7 @@ module.exports = function(grunt) {
 	// Load the plugins
     grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
+	grunt.loadNpmTasks("grunt-contrib-coffee");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
 	grunt.loadNpmTasks("grunt-sass");
 	grunt.loadNpmTasks("grunt-contrib-imagemin");
@@ -183,7 +202,7 @@ module.exports = function(grunt) {
 	grunt.file.setBase(webRoot);
 
 	// Define tasks that can be run
-	grunt.registerTask("default", ["sass", "concat", "requirejs:js", "cssmin", "newer:imagemin"]);
-	grunt.registerTask("full", ["sass", "concat", "requirejs:js", "cssmin", "newer:imagemin", "karma"]);
+	grunt.registerTask("default", ["sass", "concat", "coffee", "requirejs:js", "cssmin", "newer:imagemin"]);
+	grunt.registerTask("full", ["sass", "concat", "coffee", "requirejs:js", "cssmin", "newer:imagemin", "karma"]);
 	grunt.registerTask("test", ["karma"]);
 };
