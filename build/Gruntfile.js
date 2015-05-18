@@ -71,6 +71,12 @@ module.exports = function(grunt) {
 		// SCSS config builds all the less files into the css folder, overwrites existing files so only changes to less will persist
 		sass : {
 			main : {
+				options: {
+					outputStyle	: "expanded",
+					precision	: 5,
+					indentType	: "tab",
+					indentWidth	: 1
+				},
 				files: [{
 					expand	: true,
 					cwd		: "scss/",
